@@ -3,7 +3,7 @@ import { Typography, AppBar } from '@mui/material'
 import VideoPlayer from './components/videoplayer/videoPlayer.component'
 import Options from './components/options/options.component'
 import Notifications from './components/notifications/notifications.component'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -15,10 +15,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '600px',
     border: '2px solid black',
-
-    [theme.breakpoints.down('xs')]: {
-      width: '90%',
-    },
   },
   image: {
     marginLeft: '15px',
