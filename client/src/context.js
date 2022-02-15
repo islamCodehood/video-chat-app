@@ -36,7 +36,7 @@ const ContextProvider = ({ children }) => {
 		socket.on("me", (id) => setMe(id));
 
 		//setCall in case of receiving a call
-		socket.on("calluser", ({ from, signal, name: callerName }) => {
+		socket.on("callUser", ({ from, signal, name: callerName }) => {
 			setCall({ isReceivingCall: true, from, signal, name: callerName });
 		});
 	}, []);
@@ -47,17 +47,19 @@ const ContextProvider = ({ children }) => {
         //initiator: false as we answer a call. we didn't initiate it 
 		const peer = new Peer({ initiator: false, trickle: false, stream });
 		peer.on("signal", (signal) => {
-			socket.emit("answercall", { signal, to: call.from });
+			socket.emit("answerCall", { signal, to: call.from });
 		});
 		peer.on("stream", (currentStream) => {
 			otherUserVideo.current.srcObject = currentStream;
 		});
+		console.log(call)
 		peer.signal(call.signal);
 
 		connectionRef.current = peer;
 	};
 
 	const callUser = (id) => {
+		
         const peer = new Peer({initiator: true, trickle: false, stream})
 
         peer.on('signal', signal => {
