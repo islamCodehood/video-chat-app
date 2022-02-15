@@ -93,7 +93,9 @@ const ContextProvider = ({ children }) => {
             me,
             answerCall,
             callUser, 
-            endCall
+            endCall,
+			myVideo,
+			otherUserVideo
         }}>
             {children}
         </SocketContext.Provider>
