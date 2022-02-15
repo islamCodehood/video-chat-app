@@ -10,16 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.4.1",
-    "@mui/material": "^5.4.1",
-    "@mui/styles": "^5.4.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
-    "react-copy-to-clipboard": "^5.0.4",
-    "simple-peer": "^9.11.0",
-    "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1"
+    "socket.io": "^4.4.1"
   }
 }
