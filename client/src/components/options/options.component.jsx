@@ -73,7 +73,7 @@ const Options = ({ children }) => {
                   color="primary" 
                   startIcon={<Phone />}
                   fullWidth
-                  onClick={() => callUser(me)}
+                  onClick={() => callUser(idToCall)}
                   className={classes.margin}
                   >
                     Call
