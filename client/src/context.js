@@ -8,7 +8,7 @@ const SocketContext = createContext();
 //const socket = io("http://localhost:3000");
 
 //prod url
-const socket = io('https://video-chat-app-is.herokuapp.com')
+const socket = io('https://video-chat-app-ism.herokuapp.com')
 
 const ContextProvider = ({ children }) => {
 	//state
