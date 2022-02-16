@@ -5,7 +5,7 @@ import Peer from "simple-peer";
 const SocketContext = createContext();
 
 //dev url
-//const socket = io("http://localhost:3000");
+//const socket = io("http://localhost:5000");
 
 //prod url
 const socket = io('https://video-chat-app-ism.herokuapp.com')
@@ -43,8 +43,8 @@ const ContextProvider = ({ children }) => {
 
 	const answerCall = () => {
 		setCallAccepted(true);
-        //instantiate a new Peer instance.
-        //initiator: false as we answer a call. we didn't initiate it 
+		//instantiate a new Peer instance.
+		//initiator: false as we answer a call. we didn't initiate it
 		const peer = new Peer({ initiator: false, trickle: false, stream });
 		peer.on("signal", (signal) => {
 			socket.emit("answerCall", { signal, to: call.from });
@@ -52,56 +52,55 @@ const ContextProvider = ({ children }) => {
 		peer.on("stream", (currentStream) => {
 			otherUserVideo.current.srcObject = currentStream;
 		});
-		console.log(call)
 		peer.signal(call.signal);
 
 		connectionRef.current = peer;
 	};
 
 	const callUser = (id) => {
-		
-        const peer = new Peer({initiator: true, trickle: false, stream})
+		const peer = new Peer({ initiator: true, trickle: false, stream });
 
-        peer.on('signal', signal => {
-            socket.emit('callUser', {signal, userToCall: id, from: me, name})
-        })
-        peer.on('stream', currentStream => {
-            otherUserVideo.current = currentStream
-        })
+		peer.on("signal", (signal) => {
+			socket.emit("callUser", { signal, userToCall: id, from: me, name });
+		});
+		peer.on("stream", (currentStream) => {
+			otherUserVideo.current.srcObject = currentStream;
+		});
 
-        socket.on('callAccepted', signal => {
-            setCallAccepted(true)
+		socket.on("callAccepted", (signal) => {
+			setCallAccepted(true);
 
-            peer.signal(signal)
-        })
+			peer.signal(signal);
+		});
 
-        connectionRef.current = peer
-    };
+		connectionRef.current = peer;
+	};
 
 	const endCall = () => {
-        setCallEnded(true)
-        connectionRef.current.destroy()
-        window.location.reload()
-    };
+		setCallEnded(true);
+		connectionRef.current.destroy();
+		window.location.reload();
+	};
 
-    return (
-        <SocketContext.Provider value={{
-            callAccepted,
-            callEnded,
-            call,
-            stream,
-            name,
-            setName,
-            me,
-            answerCall,
-            callUser, 
-            endCall,
-			myVideo,
-			otherUserVideo
-        }}>
-            {children}
-        </SocketContext.Provider>
-    )
+	return (
+		<SocketContext.Provider
+			value={{
+				callAccepted,
+				callEnded,
+				call,
+				stream,
+				name,
+				setName,
+				me,
+				answerCall,
+				callUser,
+				endCall,
+				myVideo,
+				otherUserVideo,
+			}}>
+			{children}
+		</SocketContext.Provider>
+	);
 };
 
 export { ContextProvider, SocketContext };
